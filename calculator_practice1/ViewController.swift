@@ -60,7 +60,6 @@ class ViewController: UIViewController {
             lblShow.text = lblShow.text! + String(sender.tag-1)
         }
         currentNumber = Double(lblShow.text!)!
-        
     }
     
     func calculation() { //ham tinh toan
@@ -72,12 +71,11 @@ class ViewController: UIViewController {
                     lblShow.text = "Not a number"
                 } else {
                     isInteger = floor(previousNumber / currentNumber) == previousNumber / currentNumber
-                    if isInteger {
+                    if isInteger { //kiem tra phai so nguyen hay khong
                         lblShow.text = String(Int(previousNumber / currentNumber))
                     } else{
                         lblShow.text = String(previousNumber / currentNumber)
                     }
-                    
                 }
             }
             else if operation == 13 { //phep nhan
@@ -130,80 +128,64 @@ class ViewController: UIViewController {
             break
             
         case 12: //phep chia
-            
             if count >= 1 && performedMath == false { //kiem tra de xem co thuc hien lien tuc cac phep tinh khong
                 calculation()
             }
             previousNumber = Double(lblShow.text!)!
-            
             if !performedMath {
                 count += 1
             }
-            
             lblOperation.text = "/"
             operation = sender.tag
             performedMath = true
-            
             break
             
-        case 13: //multiple
+        case 13: //phep nhan
             if count >= 1 && performedMath == false {
                 calculation()
             }
             previousNumber = Double(lblShow.text!)!
-            
             if !performedMath {
                 count += 1
             }
-            
             lblOperation.text = "x"
             operation = sender.tag
             performedMath = true
-
             break
             
-        case 14: //minus
+        case 14: //phep tru
             if count >= 1 && performedMath == false {
                 calculation()
             }
-            
             previousNumber = Double(lblShow.text!)!
-            
             if !performedMath {
                 count += 1
             }
-            
             lblOperation.text = "-"
             operation = sender.tag
             performedMath = true
-
             break
             
-        case 15: //plus
+        case 15: //phep cong
             if count >= 1 && performedMath == false {
                 calculation()
             }
-
             previousNumber = Double(lblShow.text!)!
-
             if !performedMath {
                 count += 1
             }
-            
             lblOperation.text = "+"
             operation = sender.tag
             performedMath = true
             break
             
-        case 16: //press equal
+        case 16: //dau bang
             lblOperation.text = "="
             count = 0
-            
             calculation()
-
             break
             
-        case 17: //negative
+        case 17: //am/duong
             if (currentNumber.isNaN || previousNumber.isNaN) {
                 lblShow.text = "Not a number"
             } else {
@@ -211,7 +193,6 @@ class ViewController: UIViewController {
                     lblShow.text = String(Double(lblShow.text!)! * (-1))
                     currentNumber = Double(lblShow.text!)!
                     count = 0
-
                 }
             }
             break
@@ -224,7 +205,6 @@ class ViewController: UIViewController {
                 currentNumber = Double(lblShow.text!)!
                 complete = true
                 count = 0
-
             }
             break
             
