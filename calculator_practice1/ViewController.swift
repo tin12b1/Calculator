@@ -19,6 +19,7 @@ class ViewController: UIViewController {
     var previousNumber:Double = 0
     var operation:Int = 0
     var count:Int = 0
+    var temp:Double = 0
     
     //cac bien bool de xac dinh qua trinh tinh toan
     var complete = false
@@ -46,8 +47,8 @@ class ViewController: UIViewController {
                 lblShow.text = "0."
             }
             else{
-                let countdots = lblShow.text!.components(separatedBy: ".").count - 1
-                if countdots == 0 {
+                let countDots = lblShow.text!.components(separatedBy: ".").count - 1
+                if countDots == 0 {
                     lblShow.text = lblShow.text! + "."
                 }
             }
@@ -189,10 +190,15 @@ class ViewController: UIViewController {
             if (currentNumber.isNaN || previousNumber.isNaN) {
                 lblShow.text = "Not a number"
             } else {
+                temp = Double(lblShow.text!)!
                 if Double(lblShow.text!)! != 0 && performedMath != true {
-                    lblShow.text = String(Double(lblShow.text!)! * (-1))
+                    isInteger = floor(temp) == temp
+                    if isInteger {
+                        lblShow.text = String(Int(temp)*(-1))
+                    } else{
+                        lblShow.text = String(temp*(-1))
+                    }
                     currentNumber = Double(lblShow.text!)!
-                    count = 0
                 }
             }
             break
@@ -201,7 +207,13 @@ class ViewController: UIViewController {
             if (currentNumber.isNaN || previousNumber.isNaN) {
                 lblShow.text = "Not a number"
             } else {
-                lblShow.text = String(Double(lblShow.text!)! / (100))
+                temp = Double(lblShow.text!)!/100
+                isInteger = floor(temp) == temp
+                if isInteger {
+                    lblShow.text = String(Int(temp))
+                } else{
+                    lblShow.text = String(temp)
+                }
                 currentNumber = Double(lblShow.text!)!
                 complete = true
                 count = 0
