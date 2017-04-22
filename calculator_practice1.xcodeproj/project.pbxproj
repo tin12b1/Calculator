@@ -99,9 +99,9 @@
 		400641701EA073A50037195F /* calculator_practice1 */ = {
 			isa = PBXGroup;
 			children = (
-				F516DEAB1EAB37BF0070E2C9 /* InfoViewController.swift */,
 				400641711EA073A50037195F /* AppDelegate.swift */,
 				400641731EA073A50037195F /* ViewController.swift */,
+				F516DEAB1EAB37BF0070E2C9 /* InfoViewController.swift */,
 				400641751EA073A50037195F /* Main.storyboard */,
 				400641781EA073A50037195F /* Assets.xcassets */,
 				4006417A1EA073A50037195F /* LaunchScreen.storyboard */,

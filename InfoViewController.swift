@@ -21,6 +21,7 @@ class InfoViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    //nut Cancel
     @IBAction func cancelButton(_ sender: Any) {
          self.dismiss(animated: true, completion: nil)
     }
