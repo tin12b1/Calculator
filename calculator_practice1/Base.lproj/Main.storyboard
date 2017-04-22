@@ -234,6 +234,9 @@
                                 <state key="normal" title="i">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="FCo-ad-PV8" kind="show" id="5JC-4X-WHj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -336,7 +339,70 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116.25" y="122.5"/>
+            <point key="canvasLocation" x="0.0" y="108"/>
+        </scene>
+        <!--Infomation-->
+        <scene sceneID="1VA-9I-PtD">
+            <objects>
+                <viewController id="5AZ-a9-K7c" customClass="InfoViewController" customModule="calculator_practice1" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UMv-FB-4WN"/>
+                        <viewControllerLayoutGuide type="bottom" id="bda-e9-PRM"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vMp-eM-fjh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author: Tran Van Tin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AiQ-pF-84A">
+                                <rect key="frame" x="36" y="84" width="181.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: 1.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZN-5B-QTs">
+                                <rect key="frame" x="36" y="118" width="104.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="GZN-5B-QTs" firstAttribute="leading" secondItem="vMp-eM-fjh" secondAttribute="leadingMargin" constant="20" id="Vs3-Jh-MCn"/>
+                            <constraint firstItem="AiQ-pF-84A" firstAttribute="top" secondItem="UMv-FB-4WN" secondAttribute="bottom" constant="20" id="lJO-Cu-nde"/>
+                            <constraint firstItem="AiQ-pF-84A" firstAttribute="leading" secondItem="vMp-eM-fjh" secondAttribute="leadingMargin" constant="20" id="vgl-TU-vAc"/>
+                            <constraint firstItem="GZN-5B-QTs" firstAttribute="top" secondItem="AiQ-pF-84A" secondAttribute="bottom" constant="10" id="yDA-aW-504"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Infomation" id="eVf-L3-mZK">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="mC4-kj-hE8">
+                            <connections>
+                                <action selector="cancelButton:" destination="5AZ-a9-K7c" id="G4L-pX-aKY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ElL-14-qJ5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1563.75" y="105"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="o5T-jk-lDL">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FCo-ad-PV8" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SQs-ja-uxP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="5AZ-a9-K7c" kind="relationship" relationship="rootViewController" id="hnR-IQ-5xI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ORc-9U-NKS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="817.5" y="107.5"/>
         </scene>
     </scenes>
 </document>
