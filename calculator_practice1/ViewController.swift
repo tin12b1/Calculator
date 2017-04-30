@@ -10,21 +10,21 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //khai bao 2 label: 1 de hien thi so nhap vao, 1 de hien thi phep tinh
+    // Khai báo 2 label: 1 để hiển thị số nhập vào, 1 để hiển thị phép tính hiện tại
     @IBOutlet var lblShow: UILabel!
     @IBOutlet var lblOperation: UILabel!
     
-    //khai bao cac bien de tien viec tinh toan
+    // Khai báo các biến hỗ trợ việc tính toán
     var currentNumber:Double = 0
     var previousNumber:Double = 0
     var operation:Int = 0
     var count:Int = 0
     var temp:Double = 0
     
-    //cac bien bool de xac dinh qua trinh tinh toan
+    // Các biến bool để kiểm soát quá trình tính toán
     var complete = false
     var performedMath = false
-    var isInteger:Bool = false
+
 
     
     override func viewDidLoad() {
@@ -35,115 +35,120 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    //ham xu ly khi nguoi dung nhap vao
+    // Hàm xử lý khi người dùng nhập vào
     @IBAction func numbers(_ sender: UIButton) {
-        //xu ly dau thap phan
+        // Xử lý dấu thập phân
         if sender.tag == 19 {
             if lblShow.text == "0" {
                 lblShow.text = "0."
             }
-            else{
+            else {
                 let countDots = lblShow.text!.components(separatedBy: ".").count - 1
                 if countDots == 0 {
                     lblShow.text = lblShow.text! + "."
                 }
             }
-        }else if performedMath || complete || lblShow.text == "0"{
+        }
+        else if performedMath || complete || lblShow.text == "0" {
             lblShow.text = String(sender.tag-1)
             performedMath = false
             complete = false
-            //truong hop nhap moi mot con so vao
+            //Trường hợp nhập mới 1 con số vào
         }
         else {
             lblShow.text = lblShow.text! + String(sender.tag-1)
-            //truong hop nhap tiep vao, tuc la tren man hinh da co chu so
+            //Trường hợp nhập tiếp vào các con số đằng sau, khi đã nhập một hoặc vài con số
         }
         currentNumber = Double(lblShow.text!)!
     }
     
-    func calculation() { //ham tinh toan
-        if (currentNumber.isNaN || previousNumber.isNaN) {
-            lblShow.text = "Not a number"
-            //kiem tra xem hien tai cac bien co phai la so khong
-        } else {
-            //phep chia
-            if operation == 12 {
-                if currentNumber == 0 {
-                    lblShow.text = "Not a number"
-                    //chia cho 0
-                } else {
-                    //kiem tra phai so nguyen hay khong
-                    isInteger = floor(previousNumber / currentNumber) == previousNumber / currentNumber
-                    if isInteger {
-                        lblShow.text = String(Int(previousNumber / currentNumber))
-                    } else{
-                        lblShow.text = String(previousNumber / currentNumber)
-                    }
-                }
+    // Hàm tính toán
+    func calculation() {
+        // Phép chia
+        if operation == 12 {
+            if currentNumber == 0 {
+                lblShow.text = "Not a number"
+                // Chia cho 0
             }
-            //phep nhan
-            else if operation == 13 {
-                isInteger = floor(previousNumber * currentNumber) == previousNumber * currentNumber
-                if isInteger {
-                    lblShow.text = String(Int(previousNumber * currentNumber))
-                } else{
-                    lblShow.text = String(previousNumber * currentNumber)
-                }
-            }
-            //phep tru
-            else if operation == 14 {
-                isInteger = floor(previousNumber - currentNumber) == previousNumber - currentNumber
-                if isInteger {
-                    lblShow.text = String(Int(previousNumber - currentNumber))
-                } else{
-                    lblShow.text = String(previousNumber - currentNumber)
-                }
-            }
-            //phep cong
-            else if operation == 15 {
-                isInteger = floor(previousNumber + currentNumber) == previousNumber + currentNumber
-                if isInteger {
-                    lblShow.text = String(Int(previousNumber + currentNumber))
-                } else{
-                    lblShow.text = String(previousNumber + currentNumber)
-                }
-            }
-            //dau bang (=)
             else {
-                currentNumber = Double(lblShow.text!)!
-                isInteger = floor(currentNumber) == currentNumber
-                if isInteger {
-                    lblShow.text = String(Int(currentNumber))
-                } else{
-                    lblShow.text = String(currentNumber)
+                temp = previousNumber / currentNumber
+                if isInteger(temp: temp) {
+                    lblShow.text = String(format: "%.0f", temp)
+                    // Kiểm tra số nguyên
+                }
+                else {
+                    lblShow.text = String(Double(temp))
                 }
             }
-            complete = true
         }
+        // Phép nhân
+        else if operation == 13 {
+            temp = previousNumber * currentNumber
+            if isInteger(temp: temp) {
+                lblShow.text = String(format: "%.0f", temp)
+            }
+            else {
+                lblShow.text = String(Double(temp))
+            }
+        }
+        // Phép trừ
+        else if operation == 14 {
+            temp = previousNumber - currentNumber
+            if isInteger(temp: temp) {
+                lblShow.text = String(format: "%.0f", temp)
+            }
+            else {
+                lblShow.text = String(Double(temp))
+            }
+        }
+        // Phép cộng
+        else if operation == 15 {
+            temp = previousNumber + currentNumber
+            if isInteger(temp: temp) {
+                lblShow.text = String(format: "%.0f", temp)
+            }
+            else {
+                lblShow.text = String(Double(temp))
+            }
+        }
+        // Dấu bằng
+        else {
+            if isInteger(temp: currentNumber) {
+                lblShow.text = String(format: "%.0f", currentNumber)
+            }
+            else {
+                lblShow.text = String(Double(currentNumber))
+            }
+        }
+        complete = true
     }
     
-    //xu ly khi nguoi dung nhan cac button con lai
+    // Xử lý khi người dùng nhấn các button còn lại
     @IBAction func operations(_ sender: UIButton) {
-        
         switch sender.tag {
         case 11:
             lblShow.text = "0"
             lblOperation.text = ""
             currentNumber = 0
             previousNumber = 0
+            operation = 0
             count = 0
             break
-            //xoa man hinh va bo nho
+            // Xoá màn hình và bộ nhớ (các biến)
             
         case 12:
             if count >= 1 && performedMath == false {
                 calculation()
-                //kiem tra de xem co thuc hien lien tuc cac phep tinh khong
+                // Kiểm tra việc thực hiện liên tục các phép tính
             }
-            previousNumber = Double(lblShow.text!)!
+            if lblShow.text == "Not a number" {
+                break
+            }
+            else {
+                previousNumber = Double(lblShow.text!)!
+            }
             if !performedMath {
                 count += 1
             }
@@ -151,14 +156,19 @@ class ViewController: UIViewController {
             operation = sender.tag
             performedMath = true
             break
-            //phep chia
+            // Button chia (/)
             
         case 13:
             if count >= 1 && performedMath == false {
                 calculation()
-                //kiem tra de xem co thuc hien lien tuc cac phep tinh khong
+                // Kiểm tra việc thực hiện liên tục các phép tính
             }
-            previousNumber = Double(lblShow.text!)!
+            if lblShow.text == "Not a number" {
+                break
+            }
+            else {
+                previousNumber = Double(lblShow.text!)!
+            }
             if !performedMath {
                 count += 1
             }
@@ -166,14 +176,19 @@ class ViewController: UIViewController {
             operation = sender.tag
             performedMath = true
             break
-            //phep nhan
+            // Button nhân (x)
             
         case 14:
             if count >= 1 && performedMath == false {
                 calculation()
-                //kiem tra de xem co thuc hien lien tuc cac phep tinh khong
+                // Kiểm tra việc thực hiện liên tục các phép tính
             }
-            previousNumber = Double(lblShow.text!)!
+            if lblShow.text == "Not a number" {
+                break
+            }
+            else {
+                previousNumber = Double(lblShow.text!)!
+            }
             if !performedMath {
                 count += 1
             }
@@ -181,14 +196,18 @@ class ViewController: UIViewController {
             operation = sender.tag
             performedMath = true
             break
-            //phep tru
+            // Button trừ (-)
             
         case 15:
             if count >= 1 && performedMath == false {
                 calculation()
-                //kiem tra de xem co thuc hien lien tuc cac phep tinh khong
+                // Kiểm tra việc thực hiện liên tục các phép tính
             }
-            previousNumber = Double(lblShow.text!)!
+            if lblShow.text == "Not a number" {
+                break
+            } else {
+                previousNumber = Double(lblShow.text!)!
+            }
             if !performedMath {
                 count += 1
             }
@@ -196,51 +215,49 @@ class ViewController: UIViewController {
             operation = sender.tag
             performedMath = true
             break
-            //phep cong
+            // Button cộng (+)
             
         case 16:
             lblOperation.text = "="
             count = 0
             calculation()
+            operation = 0
             break
-            //dau bang
+            // Dấu bằng (=)
             
         case 17:
-            if (currentNumber.isNaN || previousNumber.isNaN) {
-                lblShow.text = "Not a number"
-                //kiem tra xem hien tai cac bien co phai la so khong
+            if lblShow.text == "Not a number" {
+                break
             } else {
                 temp = Double(lblShow.text!)!
                 if Double(lblShow.text!)! != 0 && performedMath != true {
-                    isInteger = floor(temp) == temp
-                    if isInteger {
-                        lblShow.text = String(Int(temp)*(-1))
-                    } else{
-                        lblShow.text = String(temp*(-1))
+                    if isInteger(temp: temp) {
+                        lblShow.text = String(format: "%.0f", temp * (-1))
+                    } else {
+                        lblShow.text = String(Double(temp * (-1)))
                     }
-                    currentNumber = Double(lblShow.text!)!
+                        currentNumber = Double(lblShow.text!)!
                 }
             }
             break
-            //am/duong
+            // Dấu âm
             
-        case 18: //%
-            if (currentNumber.isNaN || previousNumber.isNaN) {
-                lblShow.text = "Not a number"
-                //kiem tra xem hien tai cac bien co phai la so khong
+        case 18:
+            if lblShow.text == "Not a number" {
+                break
             } else {
                 temp = Double(lblShow.text!)!/100
-                isInteger = floor(temp) == temp
-                if isInteger {
-                    lblShow.text = String(Int(temp))
-                } else{
-                    lblShow.text = String(temp)
+                if isInteger(temp: temp) {
+                    lblShow.text = String(format: "%.0f", temp)
+                } else {
+                    lblShow.text = String(Double(temp))
                 }
                 currentNumber = Double(lblShow.text!)!
                 complete = true
                 count = 0
             }
             break
+            // Dấu phần trăm (%)
             
         default:
             break
@@ -248,7 +265,15 @@ class ViewController: UIViewController {
         
     }
     
-    
+    // Hàm kiểm tra số nguyên
+    func isInteger(temp: Double) -> Bool {
+        if temp == floor(temp) {
+            return true
+        } else {
+            return false
+        }
+    }
     
 }
+
 
